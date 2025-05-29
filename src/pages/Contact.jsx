@@ -1,6 +1,17 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 const Contact = () => {
+  const form = useRef();
+  
+  // Environment variables - FIXED: Added missing dots
+  const emailjsConfig = {
+    serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID,
+    templateId: import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+    userId: import.meta.env.VITE_EMAILJS_USER_ID,
+    apiUrl: import.meta.env.VITE_EMAILJS_API_URL,
+    contactEmail: import.meta.env.VITE_CONTACT_EMAIL
+  };
+  
   // Form state
   const [formData, setFormData] = useState({
     name: '',
@@ -26,9 +37,44 @@ const Contact = () => {
     }));
   };
   
-  // Handle form submission with email service
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Basic form validation
+    if (!formData.name || !formData.email || !formData.subject || !formData.message) {
+      setFormStatus({
+        submitted: true,
+        success: false,
+        loading: false,
+        message: 'Please fill in all required fields.'
+      });
+      return;
+    }
+    
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      setFormStatus({
+        submitted: true,
+        success: false,
+        loading: false,
+        message: 'Please enter a valid email address.'
+      });
+      return;
+    }
+    
+    // Check if environment variables are loaded
+    if (!emailjsConfig.serviceId || !emailjsConfig.templateId || !emailjsConfig.userId) {
+      setFormStatus({
+        submitted: true,
+        success: false,
+        loading: false,
+        message: 'Configuration error. Please try again later or contact us directly.'
+      });
+      console.error('EmailJS configuration missing. Please check your environment variables.');
+      return;
+    }
     
     setFormStatus({
       submitted: false,
@@ -38,62 +84,47 @@ const Contact = () => {
     });
     
     try {
-      // Option 1: Using EmailJS (recommended for client-side)
-      // First install EmailJS: npm install @emailjs/browser
-      // Then uncomment and configure this section:
-      
-      /*
-      const emailjs = await import('@emailjs/browser');
-      
-      const templateParams = {
-        from_name: formData.name,
-        from_email: formData.email,
-        phone: formData.phone,
-        subject: formData.subject,
-        message: formData.message,
-        to_email: 'xxdeepboyxx@gmail.com'
-      };
-      
-      await emailjs.send(
-        'YOUR_SERVICE_ID',     // Replace with your EmailJS service ID
-        'YOUR_TEMPLATE_ID',    // Replace with your EmailJS template ID
-        templateParams,
-        'YOUR_PUBLIC_KEY'      // Replace with your EmailJS public key
-      );
-      */
-      
-      // Option 2: Using your own backend API
-      const response = await fetch('/api/send-email', {
+      // Use EmailJS with environment variables
+      const response = await fetch(emailjsConfig.apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          ...formData,
-          to: 'xxdeepboyxx@gmail.com'
-        }),
+          service_id: emailjsConfig.serviceId,
+          template_id: emailjsConfig.templateId,
+          user_id: emailjsConfig.userId,
+          template_params: {
+            from_name: formData.name,
+            from_email: formData.email,
+            phone: formData.phone,
+            subject: formData.subject,
+            message: formData.message,
+            to_email: emailjsConfig.contactEmail
+          }
+        })
       });
       
-      if (!response.ok) {
-        throw new Error('Failed to send email');
+      if (response.ok) {
+        // Success
+        setFormStatus({
+          submitted: true,
+          success: true,
+          loading: false,
+          message: 'Thank you for your message! We will get back to you soon.'
+        });
+        
+        // Reset form after successful submission
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          subject: '',
+          message: ''
+        });
+      } else {
+        throw new Error('Failed to send message');
       }
-      
-      // Success
-      setFormStatus({
-        submitted: true,
-        success: true,
-        loading: false,
-        message: 'Thank you for your message! We will get back to you soon.'
-      });
-      
-      // Reset form after successful submission
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        subject: '',
-        message: ''
-      });
       
     } catch (error) {
       console.error('Error sending email:', error);
@@ -101,7 +132,7 @@ const Contact = () => {
         submitted: true,
         success: false,
         loading: false,
-        message: 'Failed to send message. Please try again or contact us directly.'
+        message: 'Failed to send message. Please try again or contact us directly at +212 650 216124.'
       });
     }
   };
@@ -287,31 +318,31 @@ const Contact = () => {
                 </div>
               )}
               
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <div ref={form} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="name" className="block text-gray-700 font-medium mb-2">Your Name</label>
+                    <label htmlFor="name" className="block text-gray-700 font-medium mb-2">Your Name *</label>
                     <input
                       type="text"
                       id="name"
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-red-500 focus:border-red-500"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-red-500 focus:border-red-500 focus:outline-none"
                       placeholder="John Doe"
                       required
                     />
                   </div>
                   
                   <div>
-                    <label htmlFor="email" className="block text-gray-700 font-medium mb-2">Your Email</label>
+                    <label htmlFor="email" className="block text-gray-700 font-medium mb-2">Your Email *</label>
                     <input
                       type="email"
                       id="email"
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-red-500 focus:border-red-500"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-red-500 focus:border-red-500 focus:outline-none"
                       placeholder="john@example.com"
                       required
                     />
@@ -327,20 +358,20 @@ const Contact = () => {
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-red-500 focus:border-red-500"
-                      placeholder="(123) 456-7890"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-red-500 focus:border-red-500 focus:outline-none"
+                      placeholder="+212 650 216124"
                     />
                   </div>
                   
                   <div>
-                    <label htmlFor="subject" className="block text-gray-700 font-medium mb-2">Subject</label>
+                    <label htmlFor="subject" className="block text-gray-700 font-medium mb-2">Subject *</label>
                     <input
                       type="text"
                       id="subject"
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-red-500 focus:border-red-500"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-red-500 focus:border-red-500 focus:outline-none"
                       placeholder="Membership Inquiry"
                       required
                     />
@@ -348,14 +379,14 @@ const Contact = () => {
                 </div>
                 
                 <div>
-                  <label htmlFor="message" className="block text-gray-700 font-medium mb-2">Your Message</label>
+                  <label htmlFor="message" className="block text-gray-700 font-medium mb-2">Your Message *</label>
                   <textarea
                     id="message"
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
                     rows="5"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-red-500 focus:border-red-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-red-500 focus:border-red-500 focus:outline-none"
                     placeholder="How can we help you?"
                     required
                   ></textarea>
@@ -363,14 +394,15 @@ const Contact = () => {
                 
                 <div>
                   <button
-                    type="submit"
+                    type="button"
+                    onClick={handleSubmit}
                     disabled={formStatus.loading}
-                    className="bg-red-500 hover:bg-red-600 disabled:bg-gray-400 text-white font-bold py-3 px-8 rounded-lg transition-colors duration-300"
+                    className="bg-red-500 hover:bg-red-600 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-bold py-3 px-8 rounded-lg transition-colors duration-300"
                   >
                     {formStatus.loading ? 'Sending...' : 'Send Message'}
                   </button>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         </div>
