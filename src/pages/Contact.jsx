@@ -49,6 +49,17 @@ const Contact = () => {
     // In a real application, you would send the form data to a server here
   };
   
+  // Scroll to contact form
+  const scrollToContactForm = () => {
+    const contactFormSection = document.getElementById('contact-form-section');
+    if (contactFormSection) {
+      contactFormSection.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+  
   // Social media links
   const socialLinks = [
     {
@@ -115,7 +126,7 @@ const Contact = () => {
       </section>
       
       {/* Contact Information Section */}
-      <section className="py-20 bg-white">
+      <section id="contact-form-section" className="py-20 bg-white">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
             {/* Contact Info */}
@@ -343,9 +354,12 @@ const Contact = () => {
           
           <div className="text-center mt-12">
             <p className="text-gray-700 mb-6">Still have questions? We're here to help!</p>
-            <Button variant="primary" size="lg">
+            <button
+              onClick={scrollToContactForm}
+              className="bg-primary hover:bg-primary-dark text-white font-bold py-3 px-8 rounded-lg transition-colors duration-300"
+            >
               Contact Our Support Team
-            </Button>
+            </button>
           </div>
         </div>
       </section>

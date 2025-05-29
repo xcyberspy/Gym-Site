@@ -181,13 +181,22 @@ const Pricing = () => {
                     )}
                   </div>
                   
-                  <Button 
-                    to="/contact" 
-                    variant={plan.featured ? 'primary' : 'secondary'} 
-                    className="w-full mb-8"
-                  >
-                    JOIN NOW
-                  </Button>
+                  {plan.featured ? (
+                    <Button 
+                      to="/contact" 
+                      className="w-full mb-8 bg-red-600 text-white py-3 px-6 rounded-lg font-bold hover:bg-red-700 transition-colors duration-200 border-none"
+                    >
+                      JOIN NOW
+                    </Button>
+                  ) : (
+                    <Button 
+                      to="/contact" 
+                      variant="secondary" 
+                      className="w-full mb-8"
+                    >
+                      JOIN NOW
+                    </Button>
+                  )}
                   
                   <div className="mb-6">
                     <h4 className="font-bold mb-3 text-gray-800">What's included:</h4>
