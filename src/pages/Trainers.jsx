@@ -9,7 +9,7 @@ const Trainers = () => {
       role: 'Founder & Head Trainer',
       specialties: ['Bodybuilding', 'Strength Training', 'Nutrition'],
       bio: 'With over 15 years of experience in the fitness industry, Ahmed founded Nour Gym with a vision to create a supportive community focused on holistic wellness. He holds multiple certifications in personal training, nutrition, and sports medicine.',
-      image: 'https://images.unsplash.com/photo-1594381898411-846e7d193883?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80'
+      image: 'https://images.unsplash.com/photo-1607081692251-d689f1b9af84?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80'
     },
     {
       id: 2,
@@ -17,7 +17,7 @@ const Trainers = () => {
       role: 'Yoga & Pilates Instructor',
       specialties: ['Yoga', 'Pilates', 'Meditation'],
       bio: 'Sarah brings tranquility and mindfulness to Nour Gym with her extensive background in yoga and pilates. Certified in multiple yoga disciplines, she focuses on helping members improve flexibility, balance, and mental wellness through mindful movement.',
-      image: 'https://images.unsplash.com/photo-1609899464926-c71f257cff75?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1528&q=80'
+      image: 'https://images.unsplash.com/photo-1548690312-e3b507d8c110?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80'
     },
     {
       id: 3,
@@ -25,7 +25,7 @@ const Trainers = () => {
       role: 'Cardio & HIIT Specialist',
       specialties: ['Cardio Training', 'HIIT', 'Weight Loss'],
       bio: "'Michael's high-energy approach to fitness has helped countless members achieve their weight loss and endurance goals. A former competitive athlete, he specializes in designing cardio and HIIT programs that are both effective and enjoyable.'",
-      image: 'https://images.unsplash.com/photo-1567013127542-490d757e6349?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80'
+      image: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
     },
     {
       id: 4,
@@ -33,40 +33,9 @@ const Trainers = () => {
       role: 'Zumba & Dance Fitness Instructor',
       specialties: ['Zumba', 'Dance Fitness', 'Aerobics'],
       bio: 'Aisha brings the joy of movement to Nour Gym with her infectious enthusiasm for dance fitness. With a background in professional dance and certified in Zumba instruction, she creates workouts that feel more like a party than exercise.',
-      image: 'https://images.unsplash.com/photo-1607081692251-d689f1b9af84?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80'
-    },
-    {
-      id: 5,
-      name: 'David Rodriguez',
-      role: 'Strength & Conditioning Coach',
-      specialties: ['Strength Training', 'Sports Performance', 'Functional Fitness'],
-      bio: 'David specializes in helping athletes and fitness enthusiasts take their performance to the next level. With a degree in Exercise Science and experience training professional athletes, he brings expert knowledge in strength and conditioning to the Nour Gym team.',
-      image: 'https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80'
-    },
-    {
-      id: 6,
-      name: 'Emma Wilson',
-      role: 'Nutrition & Wellness Coach',
-      specialties: ['Nutrition Planning', 'Weight Management', 'Holistic Wellness'],
-      bio: 'Emma helps members achieve their fitness goals through proper nutrition and lifestyle changes. As a certified nutritionist and wellness coach, she provides personalized guidance to complement your fitness routine and maximize results.',
-      image: 'https://images.unsplash.com/photo-1548690312-e3b507d8c110?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80'
-    },
-    {
-      id: 7,
-      name: 'James Thompson',
-      role: 'Senior Personal Trainer',
-      specialties: ['Personal Training', 'Body Transformation', 'Rehabilitation'],
-      bio: 'James has a passion for helping clients transform their bodies and lives through personalized training. With expertise in rehabilitation and corrective exercise, he specializes in creating safe, effective programs for clients of all fitness levels and backgrounds.',
       image: 'https://images.unsplash.com/photo-1571019613576-2b22c76fd955?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80'
     },
-    {
-      id: 8,
-      name: 'Sophia Kim',
-      role: 'Group Fitness Coordinator',
-      specialties: ['Group Fitness', 'Boot Camp', 'Circuit Training'],
-      bio: "'Sophia brings energy and expertise to Nour Gym's group fitness programs. With experience managing fitness programs for major health clubs, she designs and leads engaging group workouts that build both fitness and community.'",
-      image: 'https://images.unsplash.com/photo-1593476123561-9516f2097158?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80'
-    }
+    
   ];
 
   return (
