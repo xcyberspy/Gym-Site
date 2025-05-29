@@ -158,7 +158,7 @@ const Gallery = () => {
             {categories.map((category) => (
               <button
                 key={category}
-                className={`px-6 py-2 rounded-full transition-colors ${activeCategory === category ? 'bg-primary text-white' : 'bg-gray-200 text-gray-800 hover:bg-gray-300'}`}
+                className={`px-6 py-2 rounded-full transition-colors ${activeCategory === category ? 'bg-primary text-white' : 'bg-white text-white hover:bg-gray-100 border border-gray-200'}`}
                 onClick={() => setActiveCategory(category)}
               >
                 {category}

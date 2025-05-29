@@ -139,7 +139,7 @@ const Testimonials = () => {
             {programs.map((program) => (
               <button
                 key={program}
-                className={`px-6 py-2 rounded-full transition-colors ${filter === program ? 'bg-primary text-white' : 'bg-gray-200 text-gray-800 hover:bg-gray-300'}`}
+                className={`px-6 py-2 rounded-full transition-colors ${filter === program ? 'bg-primary text-white' : 'bg-white text-white hover:bg-gray-100 border border-gray-200'}`}
                 onClick={() => setFilter(program)}
               >
                 {program}
@@ -197,12 +197,18 @@ const Testimonials = () => {
             Experience the Nour Gym difference for yourself and start your fitness journey today.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Button to="/pricing" variant="primary" size="lg">
+            <Link 
+              to="/pricing" 
+              className="px-8 py-3 border border-gray-400 text-gray-700 rounded-lg font-semibold transition-all duration-300 hover:bg-red-500 hover:text-white hover:border-red-500"
+            >
               View Membership Options
-            </Button>
-            <Button to="/contact" variant="outline" size="lg">
+            </Link>
+            <Link 
+              to="/contact" 
+              className="px-8 py-3 border border-gray-400 text-gray-700 rounded-lg font-semibold transition-all duration-300 hover:bg-red-500 hover:text-white hover:border-red-500"
+            >
               Contact Us
-            </Button>
+            </Link>
           </div>
         </div>
       </section>

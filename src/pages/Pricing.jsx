@@ -134,19 +134,19 @@ const Pricing = () => {
             {/* Billing cycle toggle */}
             <div className="inline-flex items-center bg-gray-100 p-1 rounded-lg">
               <button 
-                className={`px-4 py-2 rounded-md ${billingCycle === 'monthly' ? 'bg-primary text-white' : 'text-gray-700'}`}
+                className={`px-4 py-2 rounded-md ${billingCycle === 'monthly' ? 'bg-primary text-white' : 'text-white'}`}
                 onClick={() => setBillingCycle('monthly')}
               >
                 Monthly
               </button>
               <button 
-                className={`px-4 py-2 rounded-md ${billingCycle === 'quarterly' ? 'bg-primary text-white' : 'text-gray-700'}`}
+                className={`px-4 py-2 rounded-md ${billingCycle === 'quarterly' ? 'bg-primary text-white' : 'text-white'}`}
                 onClick={() => setBillingCycle('quarterly')}
               >
                 Quarterly (10% off)
               </button>
               <button 
-                className={`px-4 py-2 rounded-md ${billingCycle === 'yearly' ? 'bg-primary text-white' : 'text-gray-700'}`}
+                className={`px-4 py-2 rounded-md ${billingCycle === 'yearly' ? 'bg-primary text-white' : 'text-white'}`}
                 onClick={() => setBillingCycle('yearly')}
               >
                 Yearly (20% off)

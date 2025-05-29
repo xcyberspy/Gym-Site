@@ -132,8 +132,8 @@ const Contact = () => {
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold mb-1">Address</h3>
-                    <p className="text-gray-700">123 Fitness Street, Gym District</p>
-                    <p className="text-gray-700">New York, NY 10001</p>
+                    <p className="text-gray-700">WMRH+WF7 نادي حمل الاثقال، تارگيست</p>
+                    <p className="text-gray-700">WMRH+WF7، تارگيست</p>
                   </div>
                 </div>
                 
@@ -145,8 +145,8 @@ const Contact = () => {
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold mb-1">Phone</h3>
-                    <p className="text-gray-700">(123) 456-7890</p>
-                    <p className="text-gray-700">(123) 456-7891</p>
+                    <p className="text-gray-700">+212 650 216124</p>
+                    <p className="text-gray-700">+212 656 084308</p>
                   </div>
                 </div>
                 
@@ -302,7 +302,7 @@ const Contact = () => {
           <div className="w-full h-96 rounded-lg overflow-hidden shadow-lg">
             {/* Replace with actual Google Maps embed code */}
             <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387193.30596552044!2d-74.25986548248684!3d40.69714941932609!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2s!4v1619826381244!5m2!1sen!2s" 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3270.5713529888562!2d-4.3213189!3d34.94228579999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd75a60c8fd488c1%3A0xadd74604f041bb92!2z2YbYp9iv2Yog2K3ZhdmEINin2YTYp9ir2YLYp9mE!5e0!3m2!1sar!2sma!4v1748514401669!5m2!1sar!2sma" 
               width="100%" 
               height="100%" 
               style={{ border: 0 }} 
