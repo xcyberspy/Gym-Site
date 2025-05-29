@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import Button from '../components/Button';
 
 const Contact = () => {
   // Form state
@@ -14,6 +13,7 @@ const Contact = () => {
   const [formStatus, setFormStatus] = useState({
     submitted: false,
     success: false,
+    loading: false,
     message: ''
   });
   
@@ -26,27 +26,84 @@ const Contact = () => {
     }));
   };
   
-  // Handle form submission
-  const handleSubmit = (e) => {
+  // Handle form submission with email service
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Simulate form submission
     setFormStatus({
-      submitted: true,
-      success: true,
-      message: 'Thank you for your message! We will get back to you soon.'
+      submitted: false,
+      success: false,
+      loading: true,
+      message: 'Sending your message...'
     });
     
-    // Reset form after successful submission
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      subject: '',
-      message: ''
-    });
-    
-    // In a real application, you would send the form data to a server here
+    try {
+      // Option 1: Using EmailJS (recommended for client-side)
+      // First install EmailJS: npm install @emailjs/browser
+      // Then uncomment and configure this section:
+      
+      /*
+      const emailjs = await import('@emailjs/browser');
+      
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        phone: formData.phone,
+        subject: formData.subject,
+        message: formData.message,
+        to_email: 'xxdeepboyxx@gmail.com'
+      };
+      
+      await emailjs.send(
+        'YOUR_SERVICE_ID',     // Replace with your EmailJS service ID
+        'YOUR_TEMPLATE_ID',    // Replace with your EmailJS template ID
+        templateParams,
+        'YOUR_PUBLIC_KEY'      // Replace with your EmailJS public key
+      );
+      */
+      
+      // Option 2: Using your own backend API
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          to: 'xxdeepboyxx@gmail.com'
+        }),
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to send email');
+      }
+      
+      // Success
+      setFormStatus({
+        submitted: true,
+        success: true,
+        loading: false,
+        message: 'Thank you for your message! We will get back to you soon.'
+      });
+      
+      // Reset form after successful submission
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        subject: '',
+        message: ''
+      });
+      
+    } catch (error) {
+      console.error('Error sending email:', error);
+      setFormStatus({
+        submitted: true,
+        success: false,
+        loading: false,
+        message: 'Failed to send message. Please try again or contact us directly.'
+      });
+    }
   };
   
   // Scroll to contact form
@@ -117,7 +174,7 @@ const Contact = () => {
         {/* Content */}
         <div className="container mx-auto px-6 relative z-10 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            Get in <span className="text-primary">Touch</span>
+            Get in <span className="text-red-500">Touch</span>
           </h1>
           <p className="text-xl max-w-3xl mx-auto text-gray-300">
             We're here to answer any questions you may have about our gym, memberships, or services.
@@ -135,7 +192,7 @@ const Contact = () => {
               
               <div className="space-y-6">
                 <div className="flex items-start">
-                  <div className="bg-primary rounded-full p-3 mr-4">
+                  <div className="bg-red-500 rounded-full p-3 mr-4">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -149,7 +206,7 @@ const Contact = () => {
                 </div>
                 
                 <div className="flex items-start">
-                  <div className="bg-primary rounded-full p-3 mr-4">
+                  <div className="bg-red-500 rounded-full p-3 mr-4">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                     </svg>
@@ -162,7 +219,7 @@ const Contact = () => {
                 </div>
                 
                 <div className="flex items-start">
-                  <div className="bg-primary rounded-full p-3 mr-4">
+                  <div className="bg-red-500 rounded-full p-3 mr-4">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
@@ -175,7 +232,7 @@ const Contact = () => {
                 </div>
                 
                 <div className="flex items-start">
-                  <div className="bg-primary rounded-full p-3 mr-4">
+                  <div className="bg-red-500 rounded-full p-3 mr-4">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
@@ -198,7 +255,7 @@ const Contact = () => {
                       href={social.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="bg-gray-200 hover:bg-primary hover:text-white text-gray-700 rounded-full p-3 transition-colors duration-300"
+                      className="bg-gray-200 hover:bg-red-500 hover:text-white text-gray-700 rounded-full p-3 transition-colors duration-300"
                       aria-label={social.name}
                     >
                       {social.icon}
@@ -212,11 +269,23 @@ const Contact = () => {
             <div className="lg:col-span-2">
               <h2 className="text-3xl font-bold mb-8">Send Us a Message</h2>
               
-              {formStatus.submitted && formStatus.success ? (
+              {formStatus.loading && (
+                <div className="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded mb-6">
+                  <p>{formStatus.message}</p>
+                </div>
+              )}
+              
+              {formStatus.submitted && formStatus.success && (
                 <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6">
                   <p>{formStatus.message}</p>
                 </div>
-              ) : null}
+              )}
+              
+              {formStatus.submitted && !formStatus.success && !formStatus.loading && (
+                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
+                  <p>{formStatus.message}</p>
+                </div>
+              )}
               
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -228,7 +297,7 @@ const Contact = () => {
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-red-500 focus:border-red-500"
                       placeholder="John Doe"
                       required
                     />
@@ -242,7 +311,7 @@ const Contact = () => {
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-red-500 focus:border-red-500"
                       placeholder="john@example.com"
                       required
                     />
@@ -258,7 +327,7 @@ const Contact = () => {
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-red-500 focus:border-red-500"
                       placeholder="(123) 456-7890"
                     />
                   </div>
@@ -271,7 +340,7 @@ const Contact = () => {
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-red-500 focus:border-red-500"
                       placeholder="Membership Inquiry"
                       required
                     />
@@ -286,7 +355,7 @@ const Contact = () => {
                     value={formData.message}
                     onChange={handleChange}
                     rows="5"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-red-500 focus:border-red-500"
                     placeholder="How can we help you?"
                     required
                   ></textarea>
@@ -295,9 +364,10 @@ const Contact = () => {
                 <div>
                   <button
                     type="submit"
-                    className="bg-primary hover:bg-primary-dark text-white font-bold py-3 px-8 rounded-lg transition-colors duration-300"
+                    disabled={formStatus.loading}
+                    className="bg-red-500 hover:bg-red-600 disabled:bg-gray-400 text-white font-bold py-3 px-8 rounded-lg transition-colors duration-300"
                   >
-                    Send Message
+                    {formStatus.loading ? 'Sending...' : 'Send Message'}
                   </button>
                 </div>
               </form>
@@ -311,7 +381,6 @@ const Contact = () => {
         <div className="container mx-auto px-6">
           <h2 className="text-3xl font-bold mb-8 text-center">Find Us</h2>
           <div className="w-full h-96 rounded-lg overflow-hidden shadow-lg">
-            {/* Replace with actual Google Maps embed code */}
             <iframe 
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3270.5713529888562!2d-4.3213189!3d34.94228579999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd75a60c8fd488c1%3A0xadd74604f041bb92!2z2YbYp9iv2Yog2K3ZhdmEINin2YTYp9ir2YLYp9mE!5e0!3m2!1sar!2sma!4v1748514401669!5m2!1sar!2sma" 
               width="100%" 
@@ -356,7 +425,7 @@ const Contact = () => {
             <p className="text-gray-700 mb-6">Still have questions? We're here to help!</p>
             <button
               onClick={scrollToContactForm}
-              className="bg-primary hover:bg-primary-dark text-white font-bold py-3 px-8 rounded-lg transition-colors duration-300"
+              className="bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-8 rounded-lg transition-colors duration-300"
             >
               Contact Our Support Team
             </button>
